@@ -45,6 +45,10 @@ def main(df_traits, species, odir, time_slice, GCMs, RCMs):
 
                             #plc_mean = np.mean(df.resample("D").agg("mean").values)
                             #plc_max = np.max(df.resample("D").agg("max").values)
+
+                            ### Daytime
+                            df = df.between_time('7:00', '19:00')
+
                             plc_mean = np.mean(df.plc.values)
                             plc_max = np.max(df.plc.values)
                             psi_leaf_min = np.min(df.psi_leaf.values)

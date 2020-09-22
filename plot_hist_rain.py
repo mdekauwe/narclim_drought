@@ -31,8 +31,8 @@ def extract_data(df, dfa):
     rf_dry = round(dfa.head(1).Rainf.values[0],1) # driest year
     rf_wet = round(dfa.tail(1).Rainf.values[0],1) # wettest year
 
-    dry_psi_leaf = df[df.index.year == year]
     other_psi_leaf = df[df.index.year != year]
+    dry_psi_leaf = df[df.index.year == year]
 
     # we now have 3 RCMs per GCM for this year, just keep the lowest RCM psi
     # leaf
@@ -41,7 +41,7 @@ def extract_data(df, dfa):
     #rcm = dry_psi_leaf.head(1).rcm.values[0]
     #dry_psi_leaf = dry_psi_leaf[(dry_psi_leaf.num == num) &
     #                            (dry_psi_leaf.rcm == rcm)]
-    
+
     return (dry_psi_leaf, other_psi_leaf, rf_dry, rf_wet)
 
 
@@ -235,63 +235,63 @@ def main(spp, plot_dir, GCMs, RCMs, time_slice, odir):
     print(spp)
 
     try:
-        sns.distplot(other_psi_leaf_GCM1.psi_leaf.values, label="Other", color="royalblue", ax=ax1)
-        sns.distplot(dry_psi_leaf_GCM1.psi_leaf.values, label="Dry", color="orange", ax=ax1)
+        sns.distplot(other_psi_leaf_GCM1.Rainf.values, label="Other", color="royalblue", ax=ax1)
+        sns.distplot(dry_psi_leaf_GCM1.Rainf.values, label="Dry", color="orange", ax=ax1)
     except:
         pass
 
-    ax1.legend(numpoints=1, loc=(0.01, 0.1), fontsize=10)
+    ax1.legend(numpoints=1, loc=(0.75, 0.1), fontsize=10)
     ax1.set_ylabel(" ")
     ax1.set_xlabel(" ")
 
     try:
-        sns.distplot(other_psi_leaf_GCM2.psi_leaf.values, label="Other", color="royalblue", ax=ax2)
-        sns.distplot(dry_psi_leaf_GCM2.psi_leaf.values, label="Dry", color="orange", ax=ax2)
+        sns.distplot(other_psi_leaf_GCM2.Rainf.values, label="Other", color="royalblue", ax=ax2)
+        sns.distplot(dry_psi_leaf_GCM2.Rainf.values, label="Dry", color="orange", ax=ax2)
     except:
         pass
     ax2.set_ylabel("Density", position=(0.5, -0.1))
     ax2.set_xlabel(" ")
 
     try:
-        sns.distplot(other_psi_leaf_GCM3.psi_leaf.values, label="Other", color="royalblue", ax=ax3)
-        sns.distplot(dry_psi_leaf_GCM3.psi_leaf.values, label="Dry", color="orange", ax=ax3)
+        sns.distplot(other_psi_leaf_GCM3.Rainf.values, label="Other", color="royalblue", ax=ax3)
+        sns.distplot(dry_psi_leaf_GCM3.Rainf.values, label="Dry", color="orange", ax=ax3)
     except:
         pass
     ax3.set_ylabel(" ")
     ax3.set_xlabel(" ")
 
     try:
-        sns.distplot(other_psi_leaf_GCM4.psi_leaf.values, label="Other", color="royalblue", ax=ax4)
-        sns.distplot(dry_psi_leaf_GCM4.psi_leaf.values, label="Dry", color="orange", ax=ax4)
+        sns.distplot(other_psi_leaf_GCM4.Rainf.values, label="Other", color="royalblue", ax=ax4)
+        sns.distplot(dry_psi_leaf_GCM4.Rainf.values, label="Dry", color="orange", ax=ax4)
     except:
         pass
     ax4.set_ylabel(" ")
-    ax4.set_xlabel("$\Psi$$_{l}$ (MPa)")
+    ax4.set_xlabel("Rain (mm month$^{-1}$)")
 
     plt.setp(ax1.get_xticklabels(), visible=False)
     plt.setp(ax2.get_xticklabels(), visible=False)
     plt.setp(ax3.get_xticklabels(), visible=False)
 
-    ax1.set_xlim(-3.0, 0.0)
-    ax2.set_xlim(-3.0, 0.0)
-    ax3.set_xlim(-3.0, 0.0)
-    ax4.set_xlim(-3.0, 0.0)
+    ax1.set_xlim(-100.0, 700.0)
+    ax2.set_xlim(-100.0, 700.0)
+    ax3.set_xlim(-100.0, 700.0)
+    ax4.set_xlim(-100.0, 700.0)
 
     props = dict(boxstyle='round', facecolor='white', alpha=0.0, ec="white")
-    ax1.text(0.02, 0.97, "CCCMA3.1: %.0f / %.0f mm" % (rf_dry_GCM1, rf_wet_GCM1),
+    ax1.text(0.72, 0.97, "CCCMA3.1: %.0f / %.0f mm" % (rf_dry_GCM1, rf_wet_GCM1),
              transform=ax1.transAxes, fontweight="bold",
              fontsize=10, verticalalignment='top', bbox=props)
-    ax2.text(0.02, 0.97, "CSIRO-MK3.0: %.0f / %.0f mm" % (rf_dry_GCM2, rf_wet_GCM2),
+    ax2.text(0.72, 0.97, "CSIRO-MK3.0: %.0f / %.0f mm" % (rf_dry_GCM2, rf_wet_GCM2),
              transform=ax2.transAxes,fontweight="bold",
              fontsize=10, verticalalignment='top', bbox=props)
-    ax3.text(0.02, 0.97, "ECHAM5: %.0f / %.0f mm" % (rf_dry_GCM3, rf_wet_GCM3),
+    ax3.text(0.72, 0.97, "ECHAM5: %.0f / %.0f mm" % (rf_dry_GCM3, rf_wet_GCM3),
              transform=ax3.transAxes, fontweight="bold",
              fontsize=10, verticalalignment='top', bbox=props)
-    ax4.text(0.02, 0.97, "MIROC3.2: %.0f / %.0f mm" % (rf_dry_GCM4, rf_wet_GCM4),
+    ax4.text(0.72, 0.97, "MIROC3.2: %.0f / %.0f mm" % (rf_dry_GCM4, rf_wet_GCM4),
              transform=ax4.transAxes, fontweight="bold",
              fontsize=10, verticalalignment='top', bbox=props)
 
-    ofname = os.path.join(plot_dir, "%s_psi_leaf_hist.png" % (spp))
+    ofname = os.path.join(plot_dir, "%s_rain_hist.png" % (spp))
     fig.savefig(ofname, dpi=150, bbox_inches='tight', pad_inches=0.1)
     plt.close(fig)
 
@@ -379,11 +379,9 @@ def read_cable_file(fname):
     ### Just keep spring/summer
     #df = df.loc[ (df.index.month >=3) & (df.index.month <=8)]
 
-    ### Daytime
-    #df = df.between_time('7:00', '19:00')
-
-    ### 11 - 2 pm
-    df = df.between_time('11:00', '14:00')
+    df = df.resample("M").agg({'Rainf': np.sum, 'TVeg': np.sum,
+                                'psi_leaf': np.min,
+                                'weighted_psi_soil': np.min})
 
     return df, dfa
 
@@ -407,3 +405,4 @@ if __name__ == "__main__":
 
     for spp in species:
         main(spp, plot_dir, GCMs, RCMs, time_slice, odir)
+        sys.exit()

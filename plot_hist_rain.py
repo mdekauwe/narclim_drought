@@ -405,4 +405,4 @@ if __name__ == "__main__":
 
     for spp in species:
         main(spp, plot_dir, GCMs, RCMs, time_slice, odir)
-        sys.exit()
+        #sys.exit()
